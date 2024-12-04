@@ -4,21 +4,30 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        string inputPath = "C:\\Users\\444St\\ict_seminary_2425\\kasiopea24\\Cards\\input.txt";
-        string outputPath = "C:\\Users\\444St\\ict_seminary_2425\\kasiopea24\\Cards\\output.txt";
+        string inputPath = "";  // To be edited
+        string outputPath = ""; // To be edited
+
+        if (inputPath == string.Empty || outputPath == string.Empty)
+            throw new Exception("Please type in your input and output file paths before running this program.");
+
         using StreamReader sr = new(inputPath);
         using StreamWriter sw = new(outputPath);
 
         int problemCount = int.Parse(sr.ReadLine());
-        int result;
+        int result; // Predefine the variable to not have to create it in every iteration of the cycle below
 
+        // One iteration per problem
         for (int i = 0; i < problemCount; i++)
         {
+            // Load and format data
             int[] data = Array.ConvertAll(sr.ReadLine().Split(' '), int.Parse);
 
+            // Calculate result
             result = SolveProblem(data[0], data[1], data[2], data[3]);
             sw.Write(result);
 
+            // Go to a new line in the output file unless this problem is the last one
+            // (has to be done due to formatting conventions)
             if (i < problemCount - 1)
                 sw.WriteLine();
         }
